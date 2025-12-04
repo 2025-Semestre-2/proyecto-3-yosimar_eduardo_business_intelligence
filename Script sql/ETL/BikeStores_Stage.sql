@@ -59,7 +59,6 @@ CREATE TABLE production.products_stage (
 CREATE TABLE sales.customers_stage (
 	customer_id INT PRIMARY KEY,
     full_name VARCHAR(500) NOT NULL,
-	--street VARCHAR (255), en dudas    
 	city VARCHAR (50),
 	state VARCHAR (25)
 );
@@ -67,7 +66,6 @@ CREATE TABLE sales.customers_stage (
 CREATE TABLE sales.stores_stage (
 	store_id INT PRIMARY KEY,
 	store_name VARCHAR (255) NOT NULL,
-	-- street VARCHAR (255), en dudas
 	city VARCHAR (255),
 	state VARCHAR (10)
 );
@@ -83,7 +81,7 @@ CREATE TABLE sales.staffs_stage (
 CREATE TABLE sales.orders_stage (
 	order_id INT PRIMARY KEY,
 	customer_id INT,
-	order_status tinyint NOT NULL, -- Posible fragmentación horizontal por estado de orden
+	order_status tinyint NOT NULL,
 	order_date DATE NOT NULL,
 	required_date DATE NOT NULL,
 	shipped_date DATE,
