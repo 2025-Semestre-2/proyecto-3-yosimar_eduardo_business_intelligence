@@ -42,7 +42,7 @@ CREATE TABLE production.categories_stage (
     category_name VARCHAR (255) NOT NULL
 );
 
-CREATE TABKE production.brands_stage (
+CREATE TABLE production.brands_stage (
     brand_id INT PRIMARY KEY,
     brand_name VARCHAR (255) NOT NULL
 );
@@ -58,7 +58,7 @@ CREATE TABLE production.products_stage (
 
 CREATE TABLE sales.customers_stage (
 	customer_id INT PRIMARY KEY,
-    full_name VARCHAR(500) NOT NULL,
+    full_name VARCHAR(510) NOT NULL,
 	city VARCHAR (50),
 	state VARCHAR (25)
 );
@@ -72,7 +72,7 @@ CREATE TABLE sales.stores_stage (
 
 CREATE TABLE sales.staffs_stage (
 	staff_id INT PRIMARY KEY,
-    full_name VARCHAR(500) NOT NULL,
+    full_name VARCHAR(510) NOT NULL,
 	active tinyint NOT NULL,
 	store_id INT NOT NULL
 );
