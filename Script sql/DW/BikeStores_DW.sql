@@ -39,49 +39,106 @@ CREATE TABLE dbo.DimProducts (
     brand_id INT NOT NULL,
     brand_name VARCHAR (255) NOT NULL,
     model_year SMALLINT NOT NULL,
-    list_price DECIMAL (10, 2) NOT NULL
-)
+    list_price DECIMAL (10, 2) NOT NULL,
+	CONSTRAINT UQ_DimProducts_BK UNIQUE (product_id)
+);
 
 CREATE TABLE dbo.DimStores (
     storeKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	store_id INT PRIMARY KEY,
+	store_id INT NOT NULL,
 	store_name VARCHAR (255) NOT NULL,
 	city VARCHAR (255),
-	state VARCHAR (10)
-)
+	state VARCHAR (10),
+	CONSTRAINT UQ_DimStores_BK UNIQUE (store_id)
+);
 
 CREATE TABLE dbo.DimStaffs (
     staffKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	staff_id INT NOT NULL,
-    full_name VARCHAR(500) NOT NULL,
+    full_name VARCHAR(510) NOT NULL,
 	active tinyint NOT NULL,
-	store_id INT NOT NULL
-)
+	store_id INT NOT NULL,
+	CONSTRAINT UQ_DimStaffs_BK UNIQUE (staff_id)
+);
 
 CREATE TABLE dbo.DimCustomers (
     customerKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	customer_id INT NOT NULL,
-    full_name VARCHAR(500) NOT NULL,
+    full_name VARCHAR(510) NOT NULL,
 	city VARCHAR (50),
-	state VARCHAR (25)
-)
+	state VARCHAR (25),
+	CONSTRAINT UQ_DimCustomers_BK UNIQUE (customer_id)
+);
 
 CREATE TABLE dbo.DimOrders (
-    orderKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	order_id INT NOT NULL,
-	customer_id INT,
-	order_status tinyint NOT NULL,
-	order_date DATE NOT NULL,
-	required_date DATE NOT NULL,
-	shipped_date DATE,
-	store_id INT NOT NULL,
-	staff_id INT NOT NULL
-)
+  OrderKey INT IDENTITY(1,1) PRIMARY KEY,
+  order_id INT NOT NULL,
+  customer_id INT NULL,
+  order_status TINYINT NOT NULL,
+  order_date DATE NOT NULL,
+  required_date DATE NOT NULL,
+  shipped_date DATE NULL,
+  store_id INT NOT NULL,
+  staff_id INT NOT NULL,
+  CONSTRAINT UQ_DimOrders_BK UNIQUE (order_id)
+);
 
+CREATE TABLE dbo.DimStock (
+	stockKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	product_id INT NOT NULL,
+	store_id INT NOT NULL,
+	quantity INT NOT NULL,
+	CONSTRAINT UQ_DimStock_BK UNIQUE (product_id, store_id)
+);
 /*
 Diseño estrella en FactOrders
 */
 
 CREATE TABLE dbo.FactOrders (
-    
-)
+  SalesKey INT IDENTITY(1,1) PRIMARY KEY,
+  ProductKey INT NOT NULL,
+  StoreKey INT NOT NULL,
+  StaffKey INT NOT NULL,
+  CustomerKey INT NOT NULL,
+  OrderKey INT NOT NULL,
+  OrderDateKey INT NOT NULL,
+  RequiredDateKey INT NOT NULL,
+  ShippedDateKey INT NULL,
+  OrderID INT NOT NULL,
+  ItemID INT NOT NULL,
+  Quantity INT NOT NULL,
+  ListPrice DECIMAL(10,2) NOT NULL,
+  Discount DECIMAL(4,2) NOT NULL,
+  GrossAmount DECIMAL(18,2) NOT NULL,
+  DiscountAmount DECIMAL(18,2) NOT NULL,
+  NetAmount DECIMAL(18,2) NOT NULL,
+  OrderCount INT NOT NULL DEFAULT 1,
+  CONSTRAINT UQ_FactOrders_Line UNIQUE (OrderID, ItemID),
+  FOREIGN KEY (ProductKey) REFERENCES dbo.DimProducts(ProductKey),
+  FOREIGN KEY (StoreKey)   REFERENCES dbo.DimStores(StoreKey),
+  FOREIGN KEY (StaffKey)   REFERENCES dbo.DimStaffs(StaffKey),
+  FOREIGN KEY (CustomerKey) REFERENCES dbo.DimCustomers(CustomerKey),
+  FOREIGN KEY (OrderKey)   REFERENCES dbo.DimOrders(OrderKey),
+  FOREIGN KEY (OrderDateKey) REFERENCES dbo.DimDate(DateKey),
+  FOREIGN KEY (RequiredDateKey) REFERENCES dbo.DimDate(DateKey),
+  FOREIGN KEY (ShippedDateKey) REFERENCES dbo.DimDate(DateKey)
+);
+
+-- Tablas para el SCD 2
+CREATE TABLE dbo.DimCustomers_Hist (
+  customer_id INT NOT NULL,
+  full_name VARCHAR(510) NOT NULL,
+  city VARCHAR(50) NULL,
+  state VARCHAR(25) NULL,
+  start_date DATETIME NOT NULL,
+  end_date DATETIME NULL
+);
+
+CREATE TABLE dbo.DimStaffs_Hist (
+  staff_id INT NOT NULL,
+  full_name VARCHAR(510) NOT NULL,
+  active TINYINT NOT NULL,
+  store_id INT NOT NULL,
+  start_date DATETIME NOT NULL,
+  end_date DATETIME NULL
+);

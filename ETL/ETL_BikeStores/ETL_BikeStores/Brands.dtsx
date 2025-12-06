@@ -11,46 +11,10 @@
   DTS:LocaleID="5130"
   DTS:ObjectName="Brands"
   DTS:PackageType="5"
-  DTS:VersionBuild="5"
-  DTS:VersionGUID="{39EAC09B-BFDE-4263-AD5F-5F5A612751CD}">
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{E2342A65-F0AD-4AC6-BCD2-2C88D3725471}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[86.48.22.73.BikeStores.sa]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{4F55E3D0-0621-4F6E-9A6D-24418330FCE8}"
-      DTS:ObjectName="86.48.22.73.BikeStores.sa">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=86.48.22.73;User ID=sa;Initial Catalog=BikeStores;Provider=MSOLEDBSQL.1;Persist Security Info=True;Application Name=SSIS-Package-{4F55E3D0-0621-4F6E-9A6D-24418330FCE8}86.48.22.73.BikeStores.sa;Auto Translate=False;">
-          <DTS:Password
-            DTS:Name="Password"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAK+ExSF88d0S6JLgS3nSIWQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAAmjNt2Nyg0UyOhBo96Bp5p5s4WIMDTju1ear7q6yNREQAAAAAOgAAAAAIAACAAAAB/B+e9pfi8yDVbxTZaV/UmiZtWX5B2WVdGaAjcWtYVoSAAAADVs8p8aM0SkNhqQgfLSrHDjPzv7OFaDQVwwq62KrTAkEAAAAAkVzb3jbd+Wb23NQ+nkupreO09+GDYzQklb+4R++PLi8fP1gI+LonfqCqIn/qBWqKQ/AHzTHUUoQ9OCep8ZCd9</DTS:Password>
-        </DTS:ConnectionManager>
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[86.48.22.73.BikeStores_Stage.sa]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{3FE6B4F7-0452-4C4E-887A-36A16C249FAD}"
-      DTS:ObjectName="86.48.22.73.BikeStores_Stage.sa">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=86.48.22.73;User ID=sa;Initial Catalog=BikeStores_Stage;Provider=MSOLEDBSQL.1;Persist Security Info=True;Application Name=SSIS-Package-{3FE6B4F7-0452-4C4E-887A-36A16C249FAD}86.48.22.73.BikeStores_Stage.sa;Auto Translate=False;">
-          <DTS:Password
-            DTS:Name="Password"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAK+ExSF88d0S6JLgS3nSIWQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACNK31AsVoJJcboBm/KtPsay7CMM4R0uH8Jco7PHoflWQAAAAAOgAAAAAIAACAAAAC8+Wrj4C69+FUBfWYcR+XHsTgULpUyztoVwIDymLBjbCAAAADJEU/LBxeNN3qCDytk3Dt3pY3bCJ8JNwSnEt1GxRahckAAAABk23Xlev8ao35EpErP2NYnTs16IxsgwKq/QClZimB0InpmtFtdcmyR5kHUsP/JWYwqTBHAWneCU7cvMRcXP43k</DTS:Password>
-        </DTS:ConnectionManager>
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-  </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
@@ -136,8 +100,8 @@
               <connections>
                 <connection
                   refId="Package\Cargar Datos\Extract.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[86.48.22.73.BikeStores.sa]"
-                  connectionManagerRefId="Package.ConnectionManagers[86.48.22.73.BikeStores.sa]"
+                  connectionManagerID="{4F55E3D0-0621-4F6E-9A6D-24418330FCE8}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[86.48.22.73.BikeStores.sa]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -275,8 +239,8 @@
               <connections>
                 <connection
                   refId="Package\Cargar Datos\Paste.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[86.48.22.73.BikeStores_Stage.sa]"
-                  connectionManagerRefId="Package.ConnectionManagers[86.48.22.73.BikeStores_Stage.sa]"
+                  connectionManagerID="{3FE6B4F7-0452-4C4E-887A-36A16C249FAD}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[86.48.22.73.BikeStores_Stage.sa]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
