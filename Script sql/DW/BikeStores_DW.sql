@@ -104,21 +104,22 @@ CREATE TABLE dbo.FactOrders (
   OrderDateKey INT NOT NULL,
   RequiredDateKey INT NOT NULL,
   ShippedDateKey INT NULL,
-  OrderID INT NOT NULL,
-  ItemID INT NOT NULL,
+  -- OrderID INT NOT NULL, -- Estos dos no tiene sentido ya que seria una dobre referencia y lo del item ID es espefico de cada producto
+                          -- pedido en la orden, y de eso en si al menos en el ejemplo del profe no se usaba.
+  -- ItemID INT NOT NULL, -- Ya los datos de este los tomamos al hacer el join en la consulta.
   Quantity INT NOT NULL,
   ListPrice DECIMAL(10,2) NOT NULL,
   Discount DECIMAL(4,2) NOT NULL,
-  GrossAmount DECIMAL(18,2) NOT NULL,
-  DiscountAmount DECIMAL(18,2) NOT NULL,
-  NetAmount DECIMAL(18,2) NOT NULL,
+  GrossAmount DECIMAL(18,2) NOT NULL, -- Monto Bruto.
+  DiscountAmount DECIMAL(18,2) NOT NULL, -- Monto con descuento.
+  NetAmount DECIMAL(18,2) NOT NULL, -- Monto neto.
   OrderCount INT NOT NULL DEFAULT 1,
-  CONSTRAINT UQ_FactOrders_Line UNIQUE (OrderID, ItemID),
+  --CONSTRAINT UQ_FactOrders_Line UNIQUE (OrderID, ItemID),
   FOREIGN KEY (ProductKey) REFERENCES dbo.DimProducts(ProductKey),
   FOREIGN KEY (StoreKey)   REFERENCES dbo.DimStores(StoreKey),
   FOREIGN KEY (StaffKey)   REFERENCES dbo.DimStaffs(StaffKey),
   FOREIGN KEY (CustomerKey) REFERENCES dbo.DimCustomers(CustomerKey),
-  FOREIGN KEY (OrderKey)   REFERENCES dbo.DimOrders(OrderKey),
+  --FOREIGN KEY (OrderKey)   REFERENCES dbo.DimOrders(OrderKey),
   FOREIGN KEY (OrderDateKey) REFERENCES dbo.DimDate(DateKey),
   FOREIGN KEY (RequiredDateKey) REFERENCES dbo.DimDate(DateKey),
   FOREIGN KEY (ShippedDateKey) REFERENCES dbo.DimDate(DateKey)
