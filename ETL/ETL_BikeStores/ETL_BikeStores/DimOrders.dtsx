@@ -11,8 +11,8 @@
   DTS:LocaleID="5130"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="2"
-  DTS:VersionGUID="{830E6D18-8E9A-423F-9444-B16875B6D51F}">
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{DA2C0FBE-5515-44C1-BA95-DFE82A40595E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -1159,19 +1159,19 @@
     </DTS:Executable>
   </DTS:Executables>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
-<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
-<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
-<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
 <Objects
   Version="8">
-  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
   <Package
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="140,41.6"
+          Size="140,42"
           Id="Package\Cargar Datos"
           TopLeft="245.833323564795,100.533334132301" />
       </GraphLayout>
@@ -1183,27 +1183,39 @@
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="112,41.6"
-          Id="Package\Cargar Datos\Extraer"
-          TopLeft="243.7,5.49999999999984" />
+          Size="167,42"
+          Id="Package\Cargar Datos\OLE DB Command"
+          TopLeft="216.1,208.7" />
         <NodeLayout
-          Size="208,41.6"
+          Size="176,42"
+          Id="Package\Cargar Datos\OLE DB Command 1"
+          TopLeft="443.7,208.7" />
+        <NodeLayout
+          Size="209,42"
           Id="Package\Cargar Datos\Slowly Changing Dimension"
           TopLeft="195.7,107.1" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Cargar Datos\Insertar destino"
+          TopLeft="5.5000000000001,208.7" />
+        <NodeLayout
+          Size="112,42"
+          Id="Package\Cargar Datos\Extraer"
+          TopLeft="243.7,5.49999999999984" />
         <EdgeLayout
           Id="Package\Cargar Datos.Paths[OLE DB Source Output]"
-          TopLeft="299.7,47.0999999999998">
+          TopLeft="299.95,47.4999999999998">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60"
+              EndConnector="0,59.6000000000002"
               Start="0,0"
-              End="0,52.5">
+              End="0,52.1000000000002">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.5" />
+                    End="0,52.1000000000002" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1212,130 +1224,105 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="150.4,41.6"
-          Id="Package\Cargar Datos\Insertar destino"
-          TopLeft="5.5000000000001,208.7" />
         <EdgeLayout
           Id="Package\Cargar Datos.Paths[New Output]"
-          TopLeft="249.7,148.7">
+          TopLeft="249.95,149.1">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-169,60"
+              EndConnector="-169.45,59.6"
               Start="0,0"
-              End="-169,52.5">
+              End="-169.45,52.1">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,16.5063291139241" />
+                    End="0,16.3672440944882" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,16.5063291139241"
-                    Point2="0,20.5063291139241"
-                    Point3="-4,20.5063291139241" />
+                    Point1="0,16.3672440944882"
+                    Point2="0,20.3672440944882"
+                    Point3="-4,20.3672440944882" />
                   <mssgle:LineSegment
-                    End="-165,20.5063291139241" />
+                    End="-165.45,20.3672440944882" />
                   <mssgle:CubicBezierSegment
-                    Point1="-165,20.5063291139241"
-                    Point2="-169,20.5063291139241"
-                    Point3="-169,24.5063291139241" />
+                    Point1="-165.45,20.3672440944882"
+                    Point2="-169.45,20.3672440944882"
+                    Point3="-169.45,24.3672440944882" />
                   <mssgle:LineSegment
-                    End="-169,52.5" />
+                    End="-169.45,52.1" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-111.59138671875,25.5063291139241,54.1827734375,11.43359375"
+              BoundingBox="-111.81638671875,25.3672440944882,54.1827734375,11.43359375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="167.2,41.6"
-          Id="Package\Cargar Datos\OLE DB Command"
-          TopLeft="216.1,208.7" />
         <EdgeLayout
           Id="Package\Cargar Datos.Paths[Inferred Member Updates Output]"
-          TopLeft="299.7,148.7">
+          TopLeft="299.9,149.1">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60"
+              EndConnector="0,59.6"
               Start="0,0"
-              End="0,52.5">
+              End="0,52.1">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.5" />
+                    End="0,52.1" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-74.40298828125,20.4208984375,148.8059765625,11.658203125"
+              BoundingBox="-74.40298828125,20.2208984375,148.8059765625,11.658203125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="176,41.6"
-          Id="Package\Cargar Datos\OLE DB Command 1"
-          TopLeft="443.7,208.7" />
         <EdgeLayout
           Id="Package\Cargar Datos.Paths[Changing Attribute Updates Output]"
-          TopLeft="349.7,148.7">
+          TopLeft="350.45,149.1">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="182,60"
+              EndConnector="181.25,59.6"
               Start="0,0"
-              End="182,52.5">
+              End="181.25,52.1">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,16.5063291139241" />
+                    End="0,16.3672440944882" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,16.5063291139241"
-                    Point2="0,20.5063291139241"
-                    Point3="4,20.5063291139241" />
+                    Point1="0,16.3672440944882"
+                    Point2="0,20.3672440944882"
+                    Point3="4,20.3672440944882" />
                   <mssgle:LineSegment
-                    End="178,20.5063291139241" />
+                    End="177.25,20.3672440944882" />
                   <mssgle:CubicBezierSegment
-                    Point1="178,20.5063291139241"
-                    Point2="182,20.5063291139241"
-                    Point3="182,24.5063291139241" />
+                    Point1="177.25,20.3672440944882"
+                    Point2="181.25,20.3672440944882"
+                    Point3="181.25,24.3672440944882" />
                   <mssgle:LineSegment
-                    End="182,52.5" />
+                    End="181.25,52.1" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="12.46609375,25.5063291139241,157.0678125,11.6630859375"
+              BoundingBox="12.09109375,25.3672440944882,157.0678125,11.6630859375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Cargar Datos\Extraer">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Cargar Datos\Slowly Changing Dimension">
     <Properties>
@@ -1413,6 +1400,19 @@
   &lt;DateVariable /&gt;
   &lt;EnableInferredSupport&gt;true&lt;/EnableInferredSupport&gt;
 &lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar Datos\Extraer">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

@@ -62,9 +62,9 @@ CREATE TABLE dbo.DimStaffs (
 );
 
 CREATE TABLE dbo.DimCustomers (
-    customerKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  customerKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	customer_id INT NOT NULL,
-    full_name VARCHAR(510) NOT NULL,
+  full_name VARCHAR(510) NOT NULL,
 	city VARCHAR (50),
 	state VARCHAR (25),
 	CONSTRAINT UQ_DimCustomers_BK UNIQUE (customer_id)
@@ -80,6 +80,10 @@ CREATE TABLE dbo.DimOrders (
   shipped_date DATE NULL,
   store_id INT NOT NULL,
   staff_id INT NOT NULL,
+  -- Estos son los nuevos que se tiene que agregar para calcular los montos.
+  -- GrossAmount DECIMAL(18,2) NOT NULL, -- Monto Bruto.
+  -- DiscountAmount DECIMAL(18,2) NOT NULL, -- Monto con descuento.
+  -- NetAmount DECIMAL(18,2) NOT NULL, -- Monto neto.
   CONSTRAINT UQ_DimOrders_BK UNIQUE (order_id)
 );
 
@@ -119,7 +123,7 @@ CREATE TABLE dbo.FactOrders (
   FOREIGN KEY (StoreKey)   REFERENCES dbo.DimStores(StoreKey),
   FOREIGN KEY (StaffKey)   REFERENCES dbo.DimStaffs(StaffKey),
   FOREIGN KEY (CustomerKey) REFERENCES dbo.DimCustomers(CustomerKey),
-  --FOREIGN KEY (OrderKey)   REFERENCES dbo.DimOrders(OrderKey),
+  FOREIGN KEY (OrderKey)   REFERENCES dbo.DimOrders(OrderKey),
   FOREIGN KEY (OrderDateKey) REFERENCES dbo.DimDate(DateKey),
   FOREIGN KEY (RequiredDateKey) REFERENCES dbo.DimDate(DateKey),
   FOREIGN KEY (ShippedDateKey) REFERENCES dbo.DimDate(DateKey)

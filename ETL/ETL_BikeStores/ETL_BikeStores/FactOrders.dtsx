@@ -11,8 +11,8 @@
   DTS:LocaleID="5130"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="7"
-  DTS:VersionGUID="{9A324DFE-6F2B-4DF3-87E7-64EE87D9AB83}">
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{89FA86D4-96AA-43E2-A8C0-2928F3057D09}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -214,22 +214,28 @@ where [refTable].[customer_id] = ?</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
-    oi.order_id,
-    oi.item_id,
-    oi.product_id,
-    oi.quantity,
-    oi.list_price,
-    oi.discount,
-    o.customer_id,
-    o.store_id,
-    o.staff_id,
-    o.order_date,
-    o.required_date,
-    o.shipped_date
-FROM sales.order_items_stage oi
-JOIN sales.orders_stage o
-  ON o.order_id = oi.order_id;</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select 
+    OS.order_id,
+    OS.customer_id,
+    OS.order_status,
+    OS.order_date,
+    OS.required_date,
+    OS.shipped_date,
+    OS.store_id,
+    OS.staff_id,
+    OIS.product_id,
+    OIS.quantity,
+    OIS.list_price,
+    OIS.discount,
+
+	-- Calculo de las cosas con descuento.
+	--SUM(OIS.quantity) AS CantProducts,
+	(OIS.quantity * OIS.list_price) AS GrossAmount,
+	(OIS.quantity * OIS.list_price * OIS.discount) AS DiscountAmount,
+	--SUM( OIS.quantity * OIS.list_price - OIS.discount + ((OIS.quantity * OIS.list_price - OIS.discount) * 0.13)) AS NetAmount
+    ((OIS.quantity * OIS.list_price)- (OIS.quantity * OIS.list_price * OIS.discount)) AS NetAmount
+from sales.orders_stage OS
+join sales.order_items_stage OIS ON OS.order_id = OIS.order_id;</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -329,15 +335,6 @@ JOIN sales.orders_stage o
                       name="staff_id"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[item_id]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[item_id]"
-                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[item_id]"
-                      name="item_id"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[product_id]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
@@ -377,6 +374,48 @@ JOIN sales.orders_stage o
                       precision="4"
                       scale="2"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[order_status]"
+                      dataType="ui1"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[order_status]"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[order_status]"
+                      name="order_status"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[GrossAmount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[GrossAmount]"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[GrossAmount]"
+                      name="GrossAmount"
+                      precision="21"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[DiscountAmount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[DiscountAmount]"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[DiscountAmount]"
+                      name="DiscountAmount"
+                      precision="26"
+                      scale="4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[NetAmount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[NetAmount]"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[NetAmount]"
+                      name="NetAmount"
+                      precision="27"
+                      scale="4"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -409,10 +448,6 @@ JOIN sales.orders_stage o
                       dataType="i4"
                       name="staff_id" />
                     <externalMetadataColumn
-                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[item_id]"
-                      dataType="i4"
-                      name="item_id" />
-                    <externalMetadataColumn
                       refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[product_id]"
                       dataType="i4"
                       name="product_id" />
@@ -432,6 +467,28 @@ JOIN sales.orders_stage o
                       name="discount"
                       precision="4"
                       scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[order_status]"
+                      dataType="ui1"
+                      name="order_status" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[GrossAmount]"
+                      dataType="numeric"
+                      name="GrossAmount"
+                      precision="21"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[DiscountAmount]"
+                      dataType="numeric"
+                      name="DiscountAmount"
+                      precision="26"
+                      scale="4" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].ExternalColumns[NetAmount]"
+                      dataType="numeric"
+                      name="NetAmount"
+                      precision="27"
+                      scale="4" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -445,15 +502,15 @@ JOIN sales.orders_stage o
                       lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[order_id]"
                       name="order_id" />
                     <outputColumn
-                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[item_id]"
-                      dataType="i4"
-                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[item_id]"
-                      name="item_id" />
-                    <outputColumn
                       refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[product_id]"
                       dataType="i4"
                       lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[product_id]"
                       name="product_id" />
+                    <outputColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[order_status]"
+                      dataType="ui1"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[order_status]"
+                      name="order_status" />
                     <outputColumn
                       refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[quantity]"
                       dataType="i4"
@@ -503,6 +560,27 @@ JOIN sales.orders_stage o
                       dataType="i4"
                       lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[staff_id]"
                       name="staff_id" />
+                    <outputColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[GrossAmount]"
+                      dataType="numeric"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[GrossAmount]"
+                      name="GrossAmount"
+                      precision="21"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[DiscountAmount]"
+                      dataType="numeric"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[DiscountAmount]"
+                      name="DiscountAmount"
+                      precision="26"
+                      scale="4" />
+                    <outputColumn
+                      refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[NetAmount]"
+                      dataType="numeric"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[NetAmount]"
+                      name="NetAmount"
+                      precision="27"
+                      scale="4" />
                     <outputColumn
                       refId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -649,12 +727,6 @@ JOIN sales.orders_stage o
                       externalMetadataColumnId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].ExternalColumns[RequiredDateKey]"
                       lineageId="Package\Cargar Datos\Required_date.Outputs[Lookup Match Output].Columns[DateKey]" />
                     <inputColumn
-                      refId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].Columns[shipped_date]"
-                      cachedDataType="dbDate"
-                      cachedName="shipped_date"
-                      externalMetadataColumnId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].ExternalColumns[ShippedDateKey]"
-                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[shipped_date]" />
-                    <inputColumn
                       refId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].Columns[list_price]"
                       cachedDataType="numeric"
                       cachedName="list_price"
@@ -662,6 +734,36 @@ JOIN sales.orders_stage o
                       cachedScale="2"
                       externalMetadataColumnId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].ExternalColumns[ListPrice]"
                       lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[list_price]" />
+                    <inputColumn
+                      refId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].Columns[GrossAmount]"
+                      cachedDataType="numeric"
+                      cachedName="GrossAmount"
+                      cachedPrecision="21"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].ExternalColumns[GrossAmount]"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[GrossAmount]" />
+                    <inputColumn
+                      refId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].Columns[DiscountAmount]"
+                      cachedDataType="numeric"
+                      cachedName="DiscountAmount"
+                      cachedPrecision="26"
+                      cachedScale="4"
+                      externalMetadataColumnId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].ExternalColumns[DiscountAmount]"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[DiscountAmount]" />
+                    <inputColumn
+                      refId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].Columns[NetAmount]"
+                      cachedDataType="numeric"
+                      cachedName="NetAmount"
+                      cachedPrecision="27"
+                      cachedScale="4"
+                      externalMetadataColumnId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].ExternalColumns[NetAmount]"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[NetAmount]" />
+                    <inputColumn
+                      refId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].Columns[DateKey2]"
+                      cachedDataType="i4"
+                      cachedName="DateKey"
+                      externalMetadataColumnId="Package\Cargar Datos\Guardar Facorders.Inputs[OLE DB Destination Input].ExternalColumns[ShippedDateKey]"
+                      lineageId="Package\Cargar Datos\Shipped_date.Outputs[Lookup Match Output].Columns[DateKey]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1772,7 +1874,7 @@ where [refTable].[store_id] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[staff_id]};</property>
+                  name="ParameterMap">#{Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[store_id]};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -1796,10 +1898,10 @@ where [refTable].[store_id] = ?</property>
                   name="Lookup Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Cargar Datos\Stores.Inputs[Lookup Input].Columns[staff_id]"
+                      refId="Package\Cargar Datos\Stores.Inputs[Lookup Input].Columns[store_id]"
                       cachedDataType="i4"
-                      cachedName="staff_id"
-                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[staff_id]">
+                      cachedName="store_id"
+                      lineageId="Package\Cargar Datos\Extraer Datos_Stage.Outputs[OLE DB Source Output].Columns[store_id]">
                       <properties>
                         <property
                           dataType="System.String"
@@ -1964,7 +2066,7 @@ where [refTable].[store_id] = ?</property>
         <NodeLayout
           Size="166,42"
           Id="Package\Cargar Datos\Guardar Facorders"
-          TopLeft="173,305" />
+          TopLeft="176,303" />
         <NodeLayout
           Size="101,42"
           Id="Package\Cargar Datos\Staff"
@@ -2017,33 +2119,33 @@ where [refTable].[store_id] = ?</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-81.5,64"
+              EndConnector="-78.5,62"
               Start="0,0"
-              End="-81.5,56.5">
+              End="-78.5,54.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,28" />
+                    End="0,27" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,28"
-                    Point2="0,32"
-                    Point3="-4,32" />
+                    Point1="0,27"
+                    Point2="0,31"
+                    Point3="-4,31" />
                   <mssgle:LineSegment
-                    End="-77.5,32" />
+                    End="-74.5,31" />
                   <mssgle:CubicBezierSegment
-                    Point1="-77.5,32"
-                    Point2="-81.5,32"
-                    Point3="-81.5,36" />
+                    Point1="-74.5,31"
+                    Point2="-78.5,31"
+                    Point3="-78.5,35" />
                   <mssgle:LineSegment
-                    End="-81.5,56.5" />
+                    End="-78.5,54.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-88.94138671875,37,96.3827734375,11.609375"
+              BoundingBox="-87.44138671875,36,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -2247,7 +2349,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2257,7 +2359,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2270,7 +2372,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2280,7 +2382,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2306,7 +2408,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2316,7 +2418,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2329,7 +2431,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2339,7 +2441,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2352,7 +2454,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2362,7 +2464,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2375,7 +2477,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2385,7 +2487,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2411,7 +2513,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2421,7 +2523,7 @@ where [refTable].[store_id] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>

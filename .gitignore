@@ -1,0 +1,46 @@
+ETL\ETL_BikeStores\ETL_BikeStores\bin
+# Ignore build output directories
+ETL\ETL_BikeStores\ETL_BikeStores\obj
+
+## Archivos de usuario
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## Archivos de compilación
+bin/
+obj/
+[Bb]uild/
+[Bb]uilds/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+## Archivos de paquetes
+*.nupkg
+*.snupkg
+packages/
+*.nuspec
+
+## Archivos de configuración local
+.vs/
+*.vscode/
+
+## Archivos temporales
+*.tmp
+*.log
+*.vspscc
+*.vssscc
+
+## Archivos generados por pruebas
+TestResults/
+*.coverage
+*.coveragexml
+
+## Archivos de publicación
+publish/
+*.pubxml
+*.publishproj
