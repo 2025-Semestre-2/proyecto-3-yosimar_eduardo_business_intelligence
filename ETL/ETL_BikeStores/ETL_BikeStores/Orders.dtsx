@@ -11,8 +11,8 @@
   DTS:LocaleID="5130"
   DTS:ObjectName="Orders"
   DTS:PackageType="5"
-  DTS:VersionBuild="6"
-  DTS:VersionGUID="{1169E71D-BBEB-47E7-90BA-6F30A9A72508}">
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{75E48A01-C0A9-4DE5-AFB0-0DB259AF7F49}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -25,11 +25,11 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=86.48.22.73;User ID=sa;Initial Catalog=BikeStores;Provider=MSOLEDBSQL.1;Persist Security Info=True;Application Name=SSIS-Package-{04321662-E348-4B18-AFB1-D593A1D945E5}86.48.22.73.BikeStores.sa;Auto Translate=False;">
+          DTS:ConnectionString="Data Source=86.48.22.73;User ID=sa;Initial Catalog=BikeStores;Provider=MSOLEDBSQL.1;Persist Security Info=True;Auto Translate=False;Application Name=SSIS-Package-{04321662-E348-4B18-AFB1-D593A1D945E5}86.48.22.73.BikeStores.sa;">
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAK+ExSF88d0S6JLgS3nSIWQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACMe741psHVRlxBEatrX0V/no9KSirQxQ3IuttUadjv5wAAAAAOgAAAAAIAACAAAADHQrBQwMTl6LZtBKAzIazGa2xJxzLqf9rvyOCbFGXgwCAAAAAcZfUqBdTIoAMiGNcOw4kDl1Ql9gbJ3jiChJ+tR+t2OUAAAAATXNAvuPCPMsWlcZOzmtl6ZiX68fg/dQblIW8n9QPdHmTwrRvVGm1tMzJwh9FxP8F/nOnT4XSTi0pnGUsfeDlk</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAMzeAU1zWPU+ppoMSEvPIdQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACIYEgakMSL891lvBxed4XuZd4glaCGDlJZ9q7QQ5dgQAAAAAAOgAAAAAIAACAAAADWYHSdadc4Z+/ZMRZxEa3DTauwSRo7RsIJzYgSK85Z0CAAAAC23/c3oe/xPTRFgm5qk0AI0AvKQydjDGUkTjOFtqqJBkAAAAD/wng8EP6grd52qLeVn1k75QAIQKec3PCsBjlqWl/KahXGAoU3bT1uMBpEKgzMuu5U28lRq4fGFevf5xf3VICK</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -42,11 +42,11 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=86.48.22.73;User ID=sa;Initial Catalog=BikeStores_Stage;Provider=MSOLEDBSQL.1;Persist Security Info=True;Application Name=SSIS-Package-{50028EB9-F4BB-4D02-9251-B713D7C3013E}86.48.22.73.BikeStores_Stage.sa;Auto Translate=False;">
+          DTS:ConnectionString="Data Source=86.48.22.73;User ID=sa;Initial Catalog=BikeStores_Stage;Provider=MSOLEDBSQL.1;Persist Security Info=True;Auto Translate=False;Application Name=SSIS-Package-{50028EB9-F4BB-4D02-9251-B713D7C3013E}86.48.22.73.BikeStores_Stage.sa;">
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAK+ExSF88d0S6JLgS3nSIWQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACIIDwDKPyn8HfiiDmOjVX32iKBBuwREccEc2HvwA6KEgAAAAAOgAAAAAIAACAAAAAtEQQGpkAE3RIWAGsI7wa05rfBLy0hXf7MQXnW6apjcCAAAACz7i8qKeUYnClug0JWwAAVrCzsBQTgmP8nd9YCAJDBfEAAAACe8xUp5B+7hWRI3CbqoeofLooa1d4ztaLfkrP0lRomHq0pPbIrNdu414GuD/WEK6TLUw3guilhJfaHq2jvY8eh</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAMzeAU1zWPU+ppoMSEvPIdQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADAwkZ8WrvfTpzqYFz3mjuHTeGfXIka6XlGU5DHqgrRNAAAAAAOgAAAAAIAACAAAAAQrht9RA6O6VfSE3nOUvXXdtIhbTA7oF/hZ7NRfRK67iAAAAAtqk4bBWw1IOx41c+fsL6PkiOW0F7rknqhrZ8BqUyjdkAAAAAouJ0eCi8ZobiqFE5DGCkNFo63wOuGZkrzezrHzQyLrUj31XsG9hi5XkMHR6/386pMJhREh7MxBlFR98e7SpvU</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -549,27 +549,27 @@
       DTS:To="Package\Cargar Datos" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
-<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
-<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
-<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
 <Objects
   Version="8">
-  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
   <Package
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="136,41.6"
+          Size="136,42"
           Id="Package\Borrar Tabla"
           TopLeft="344.166652990713,45.9333336983787" />
         <NodeLayout
-          Size="140,41.6"
+          Size="140,42"
           Id="Package\Cargar Datos"
           TopLeft="339.166653189395,249.600001983643" />
         <NodeLayout
-          Size="133.6,41.6"
+          Size="134,42"
           Id="Package\Crear Tabla"
           TopLeft="344.166652990713,131.733334380256" />
         <EdgeLayout
@@ -625,11 +625,11 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="104.8,41.6"
+          Size="105,42"
           Id="Package\Cargar Datos\Paste"
           TopLeft="516.666646136179,188.066668161286" />
         <NodeLayout
-          Size="110.4,41.6"
+          Size="110,42"
           Id="Package\Cargar Datos\Extract"
           TopLeft="129.166661534045,180.266668099297" />
         <EdgeLayout

@@ -11,8 +11,8 @@
   DTS:LocaleID="5130"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="16"
-  DTS:VersionGUID="{DCF7987B-3CFE-43AC-81BD-0BE8E0781AD2}">
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{E684DA73-FAB1-44AB-9852-5324BEFCFE11}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -314,7 +314,6 @@
           DTS:refId="Package\Transformaciones\FactOrders"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
-          DTS:Disabled="True"
           DTS:DTSID="{6DF6B7F6-F373-4DD8-AB5F-558C32D5DCC4}"
           DTS:ExecutableType="Microsoft.ExecutePackageTask"
           DTS:LocaleID="-1"
@@ -324,6 +323,7 @@
           <DTS:ObjectData>
             <ExecutePackageTask>
               <UseProjectReference>True</UseProjectReference>
+              <PackageName>FactOrders.dtsx</PackageName>
             </ExecutePackageTask>
           </DTS:ObjectData>
         </DTS:Executable>
@@ -517,51 +517,51 @@
       DTS:To="Package\Transformaciones" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
-<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
-<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
-<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
 <Objects
   Version="8">
-  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
   <Package
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
         Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="111.2,41.6"
+          Size="111,42"
           Id="Package\Carga Datos Stage\Brands"
           TopLeft="31.7666637195482,87.333334669537" />
         <NodeLayout
-          Size="128.8,41.6"
+          Size="129,42"
           Id="Package\Carga Datos Stage\Categories"
           TopLeft="20.0999975164733,20.6000008058548" />
         <NodeLayout
-          Size="128.8,41.6"
+          Size="129,42"
           Id="Package\Carga Datos Stage\Customers"
           TopLeft="18.433330916034,308.533336033292" />
         <NodeLayout
-          Size="132.8,41.6"
+          Size="133,42"
           Id="Package\Carga Datos Stage\Order Items"
           TopLeft="191.76665736172,87.2000005785624" />
         <NodeLayout
-          Size="110.4,41.6"
+          Size="110,42"
           Id="Package\Carga Datos Stage\Orders"
           TopLeft="202.599990264575,165.200001198451" />
         <NodeLayout
-          Size="119.2,41.6"
+          Size="119,42"
           Id="Package\Carga Datos Stage\Products"
           TopLeft="23.4333307173518,157.866668264601" />
         <NodeLayout
-          Size="100,41.6"
+          Size="100,42"
           Id="Package\Carga Datos Stage\Staff"
           TopLeft="205.099990165234,232.533335124122" />
         <NodeLayout
-          Size="109.6,41.6"
+          Size="110,42"
           Id="Package\Carga Datos Stage\Stocks"
           TopLeft="24.2666640175714,228.066668822501" />
         <NodeLayout
-          Size="108.8,41.6"
+          Size="109,42"
           Id="Package\Carga Datos Stage\Stores"
           TopLeft="202.599990264575,313.133335847325" />
         <EdgeLayout
@@ -743,24 +743,48 @@
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="470.4,409.6"
-          Size="470.4,452.8"
+          PanelSize="470,410"
+          Size="470,453"
           Id="Package\Carga Datos Stage"
           TopLeft="42.499998311202,37.2666669628356" />
         <NodeLayout
-          Size="100,41.6"
+          Size="129,42"
+          Id="Package\Transformaciones\Customers"
+          TopLeft="77.6333054847198,315.133335723347" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Transformaciones\Customers Hist"
+          TopLeft="222.033305882084,164.266667603387" />
+        <NodeLayout
+          Size="100,42"
           Id="Package\Transformaciones\Date"
           TopLeft="93.4666381888932,24.4000005372366" />
         <NodeLayout
-          Size="119.2,41.6"
+          Size="130,42"
+          Id="Package\Transformaciones\FactOrders"
+          TopLeft="223.099971489112,13.466666404936" />
+        <NodeLayout
+          Size="110,42"
+          Id="Package\Transformaciones\Orders"
+          TopLeft="249.066632228429,312.733335558044" />
+        <NodeLayout
+          Size="119,42"
           Id="Package\Transformaciones\Products"
           TopLeft="83.466638586257,94.0666672934426" />
         <NodeLayout
-          Size="104.8,41.6"
+          Size="105,42"
           Id="Package\Transformaciones\Staffs"
           TopLeft="90.1333049880146,241.933335599369" />
         <NodeLayout
-          Size="108.8,41.6"
+          Size="126,42"
+          Id="Package\Transformaciones\Staffs Hist"
+          TopLeft="228.5333073722,85.0666677686903" />
+        <NodeLayout
+          Size="105,42"
+          Id="Package\Transformaciones\Stock"
+          TopLeft="249.799971191089,245.733334917492" />
+        <NodeLayout
+          Size="109,42"
           Id="Package\Transformaciones\Stores"
           TopLeft="81.799971985818,164.800001653036" />
         <EdgeLayout
@@ -829,10 +853,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="128.8,41.6"
-          Id="Package\Transformaciones\Customers"
-          TopLeft="77.6333054847198,315.133335723347" />
         <EdgeLayout
           Id="Package\Transformaciones.PrecedenceConstraints[Restricción 3]"
           TopLeft="142.283305236367,283.533335599369">
@@ -855,10 +875,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="110.4,41.6"
-          Id="Package\Transformaciones\Orders"
-          TopLeft="249.066632228429,312.733335558044" />
         <EdgeLayout
           Id="Package\Transformaciones.PrecedenceConstraints[Restricción 4]"
           TopLeft="206.43330548472,334.733335640695">
@@ -881,14 +897,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="130.4,41.6"
-          Id="Package\Transformaciones\FactOrders"
-          TopLeft="223.099971489112,13.466666404936" />
-        <NodeLayout
-          Size="104.8,41.6"
-          Id="Package\Transformaciones\Stock"
-          TopLeft="249.799971191089,245.733334917492" />
         <EdgeLayout
           Id="Package\Transformaciones.PrecedenceConstraints[Restricción 5]"
           TopLeft="303.233301709759,312.733335558044">
@@ -911,10 +919,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="149.6,41.6"
-          Id="Package\Transformaciones\Customers Hist"
-          TopLeft="222.033305882084,164.266667603387" />
         <EdgeLayout
           Id="Package\Transformaciones.PrecedenceConstraints[Restricción 6]"
           TopLeft="299.516638536587,245.733334917492">
@@ -937,10 +941,6 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="125.6,41.6"
-          Id="Package\Transformaciones\Staffs Hist"
-          TopLeft="228.5333073722,85.0666677686903" />
         <EdgeLayout
           Id="Package\Transformaciones.PrecedenceConstraints[Restricción 7]"
           TopLeft="294.083306627142,164.266667603387">
@@ -988,8 +988,8 @@
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="534.4,421.6"
-          Size="534.4,464.8"
+          PanelSize="534,422"
+          Size="534,465"
           Id="Package\Transformaciones"
           TopLeft="623.333308564293,30.6666666115655" />
         <EdgeLayout

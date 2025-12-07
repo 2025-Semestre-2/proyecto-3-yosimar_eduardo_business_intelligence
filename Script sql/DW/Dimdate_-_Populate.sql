@@ -2,8 +2,19 @@
 --Specify Start Date and End date here
 --Value of Start Date Must be Less than Your End Date 
 
-DECLARE @StartDate DATETIME = '01/01/1900' --Starting value of Date Range
-DECLARE @EndDate DATETIME = '01/02/1900' --End Value of Date Range
+
+-- Para calcular el rango de fechas que se va a trabajar.
+-- SELECT
+-- 	MIN(order_date) AS StartDate,
+-- 	MAX(order_date) AS EndDate,
+-- 	min(required_date) AS MinRequiredDate,
+-- 	max(required_date) AS MaxRequiredDate,
+-- 	max(shipped_date) AS MaxShippedDate,
+-- 	MIN(shipped_date) AS MinShippedDate
+-- from dbo.DimOrders
+
+DECLARE @StartDate DATE = '01/01/2016' --Starting value of Date Range -> Este es la fecha minima registrada actualemente en el sistema.
+DECLARE @EndDate DATE = '01/01/2019' --End Value of Date Range
 
 --Temporary Variables To Hold the Values During Processing of Each Date of Year
 DECLARE
@@ -28,7 +39,7 @@ INSERT INTO @DayOfWeek VALUES (7, 0, 0, 0)
 
 --Extract and assign various parts of Values from Current Date to Variable
 
-DECLARE @CurrentDate AS DATETIME = @StartDate
+DECLARE @CurrentDate AS DATE = @StartDate
 SET @CurrentMonth = DATEPART(MM, @CurrentDate)
 SET @CurrentYear = DATEPART(YY, @CurrentDate)
 SET @CurrentQuarter = DATEPART(QQ, @CurrentDate)

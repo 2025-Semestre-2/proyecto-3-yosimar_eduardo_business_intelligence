@@ -10,7 +10,7 @@ END CATCH
 
 CREATE TABLE	[dbo].[DimDate]
 	(	[DateKey] INT primary key, 
-		[Date] DATETIME,
+		[Date] DATE,
 		[FullDateUK] CHAR(10), -- Date in dd-MM-yyyy format
 		[FullDateUSA] CHAR(10),-- Date in MM-dd-yyyy format
 		[DayOfMonth] VARCHAR(2), -- Field will hold day number of Month

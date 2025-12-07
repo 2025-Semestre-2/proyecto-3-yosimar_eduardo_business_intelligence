@@ -11,8 +11,8 @@
   DTS:LocaleID="5130"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{7058112A-0776-40A2-89FD-FDCF2A164F58}">
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{B0C8DD8C-7D0A-4419-91DF-810B99E25D5E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -1250,19 +1250,19 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
     </DTS:Executable>
   </DTS:Executables>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
-<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
-<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
-<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
 <Objects
   Version="8">
-  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
   <Package
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="150.4,41.6"
+          Size="150,42"
           Id="Package\Data Flow Task"
           TopLeft="369.999985297522,153.400001219114" />
       </GraphLayout>
@@ -1274,13 +1274,25 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="139.2,41.6"
-          Id="Package\Data Flow Task\ExtraerDatos"
-          TopLeft="230.1,5.49999999999984" />
+          Size="167,42"
+          Id="Package\Data Flow Task\OLE DB Command"
+          TopLeft="216.1,208.7" />
         <NodeLayout
-          Size="208,41.6"
+          Size="176,42"
+          Id="Package\Data Flow Task\OLE DB Command 1"
+          TopLeft="443.7,208.7" />
+        <NodeLayout
+          Size="208,42"
           Id="Package\Data Flow Task\Slowly Changing Dimension"
           TopLeft="195.7,107.1" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Data Flow Task\Insertar destino"
+          TopLeft="5.5000000000001,208.7" />
+        <NodeLayout
+          Size="139,42"
+          Id="Package\Data Flow Task\ExtraerDatos"
+          TopLeft="230.1,5.49999999999984" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
           TopLeft="299.7,47.0999999999998">
@@ -1303,10 +1315,6 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="150.4,41.6"
-          Id="Package\Data Flow Task\Insertar destino"
-          TopLeft="5.5000000000001,208.7" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[New Output]"
           TopLeft="249.7,148.7">
@@ -1339,14 +1347,10 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-111.59138671875,25.5063291139241,54.1827734375,11.43359375"
+              BoundingBox="-111.19138671875,25.3696202531646,54.1827734375,11.43359375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="167.2,41.6"
-          Id="Package\Data Flow Task\OLE DB Command"
-          TopLeft="216.1,208.7" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Inferred Member Updates Output]"
           TopLeft="299.7,148.7">
@@ -1367,14 +1371,10 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-74.40298828125,20.4208984375,148.8059765625,11.658203125"
+              BoundingBox="-74.40298828125,20.2208984375,148.8059765625,11.658203125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="176,41.6"
-          Id="Package\Data Flow Task\OLE DB Command 1"
-          TopLeft="443.7,208.7" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Changing Attribute Updates Output]"
           TopLeft="349.7,148.7">
@@ -1407,21 +1407,13 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="12.46609375,25.5063291139241,157.0678125,11.6630859375"
+              BoundingBox="12.96609375,25.3696202531646,157.0678125,11.6630859375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Data Flow Task\ExtraerDatos">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Data Flow Task\Slowly Changing Dimension">
     <Properties>
@@ -1499,6 +1491,14 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
   &lt;DateVariable /&gt;
   &lt;EnableInferredSupport&gt;true&lt;/EnableInferredSupport&gt;
 &lt;/SCDWizardMetadata&gt;</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Data Flow Task\ExtraerDatos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

@@ -62,9 +62,9 @@ CREATE TABLE dbo.DimStaffs (
 );
 
 CREATE TABLE dbo.DimCustomers (
-    customerKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  customerKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	customer_id INT NOT NULL,
-    full_name VARCHAR(510) NOT NULL,
+  full_name VARCHAR(510) NOT NULL,
 	city VARCHAR (50),
 	state VARCHAR (25),
 	CONSTRAINT UQ_DimCustomers_BK UNIQUE (customer_id)
@@ -80,6 +80,10 @@ CREATE TABLE dbo.DimOrders (
   shipped_date DATE NULL,
   store_id INT NOT NULL,
   staff_id INT NOT NULL,
+  -- Estos son los nuevos que se tiene que agregar para calcular los montos.
+  -- GrossAmount DECIMAL(18,2) NOT NULL, -- Monto Bruto.
+  -- DiscountAmount DECIMAL(18,2) NOT NULL, -- Monto con descuento.
+  -- NetAmount DECIMAL(18,2) NOT NULL, -- Monto neto.
   CONSTRAINT UQ_DimOrders_BK UNIQUE (order_id)
 );
 
@@ -104,16 +108,17 @@ CREATE TABLE dbo.FactOrders (
   OrderDateKey INT NOT NULL,
   RequiredDateKey INT NOT NULL,
   ShippedDateKey INT NULL,
-  OrderID INT NOT NULL,
-  ItemID INT NOT NULL,
+  -- OrderID INT NOT NULL, -- Estos dos no tiene sentido ya que seria una dobre referencia y lo del item ID es espefico de cada producto
+                          -- pedido en la orden, y de eso en si al menos en el ejemplo del profe no se usaba.
+  -- ItemID INT NOT NULL, -- Ya los datos de este los tomamos al hacer el join en la consulta.
   Quantity INT NOT NULL,
   ListPrice DECIMAL(10,2) NOT NULL,
   Discount DECIMAL(4,2) NOT NULL,
-  GrossAmount DECIMAL(18,2) NOT NULL,
-  DiscountAmount DECIMAL(18,2) NOT NULL,
-  NetAmount DECIMAL(18,2) NOT NULL,
+  GrossAmount DECIMAL(18,2) NOT NULL, -- Monto Bruto.
+  DiscountAmount DECIMAL(18,2) NOT NULL, -- Monto con descuento.
+  NetAmount DECIMAL(18,2) NOT NULL, -- Monto neto.
   OrderCount INT NOT NULL DEFAULT 1,
-  CONSTRAINT UQ_FactOrders_Line UNIQUE (OrderID, ItemID),
+  --CONSTRAINT UQ_FactOrders_Line UNIQUE (OrderID, ItemID),
   FOREIGN KEY (ProductKey) REFERENCES dbo.DimProducts(ProductKey),
   FOREIGN KEY (StoreKey)   REFERENCES dbo.DimStores(StoreKey),
   FOREIGN KEY (StaffKey)   REFERENCES dbo.DimStaffs(StaffKey),
