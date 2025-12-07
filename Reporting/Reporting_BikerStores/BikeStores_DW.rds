@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="BikeStores_DW">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=86.48.22.73;Initial Catalog=BikeStores_DW</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>cddc274c-707c-4674-8032-5c7f5c83f7dc</DataSourceID>
+</RptDataSource>
