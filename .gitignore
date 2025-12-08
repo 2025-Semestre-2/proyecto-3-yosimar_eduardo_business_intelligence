@@ -44,3 +44,5 @@ TestResults/
 publish/
 *.pubxml
 *.publishproj
+
+/ETL/ETL_BikeStores/ETL_BikeStores/bin
