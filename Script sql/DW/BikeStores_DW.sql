@@ -40,6 +40,7 @@ CREATE TABLE dbo.DimProducts (
   brand_name VARCHAR (255) NOT NULL,
   model_year SMALLINT NOT NULL,
   list_price DECIMAL (10, 2) NOT NULL,
+  quantity INT NULL, -- Se agrega la cantidad del producto para que se pueda acceder a ella.
 	CONSTRAINT UQ_DimProducts_BK UNIQUE (product_id)
 );
 

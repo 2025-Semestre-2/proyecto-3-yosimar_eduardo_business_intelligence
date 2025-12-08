@@ -32,3 +32,6 @@ SELECT
 FROM sales.staffs_stage SS
 join sales.stores_stage SST ON SS.store_id = SST.store_id;
 
+
+-- Para los Productos.
+
