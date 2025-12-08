@@ -11,8 +11,8 @@
   DTS:LocaleID="5130"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="17"
-  DTS:VersionGUID="{E684DA73-FAB1-44AB-9852-5324BEFCFE11}">
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{F6C4F3B7-A8AF-41AE-BAB1-38992E835011}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -396,6 +396,24 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
+          DTS:refId="Package\Transformaciones\Staff_Hist"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:Disabled="True"
+          DTS:DTSID="{4005A348-B197-4C0B-9F90-4DE0987838F4}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Staff_Hist"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>DimStaffs_Hist.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
           DTS:refId="Package\Transformaciones\Stock"
           DTS:CreationName="Microsoft.ExecutePackageTask"
           DTS:Description="Execute Package Task"
@@ -431,6 +449,14 @@
         </DTS:Executable>
       </DTS:Executables>
       <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Transformaciones.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{80E9EF87-80B8-402E-A3C4-48CE8C2184A7}"
+          DTS:From="Package\Transformaciones\FactOrders"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Transformaciones\Staff_Hist" />
         <DTS:PrecedenceConstraint
           DTS:refId="Package\Transformaciones.PrecedenceConstraints[Restricción]"
           DTS:CreationName=""
@@ -754,7 +780,7 @@
         <NodeLayout
           Size="150,42"
           Id="Package\Transformaciones\Customers Hist"
-          TopLeft="222.033305882084,164.266667603387" />
+          TopLeft="226.033305882084,248.266667603387" />
         <NodeLayout
           Size="100,42"
           Id="Package\Transformaciones\Date"
@@ -762,11 +788,11 @@
         <NodeLayout
           Size="130,42"
           Id="Package\Transformaciones\FactOrders"
-          TopLeft="223.099971489112,13.466666404936" />
+          TopLeft="227.099971489112,97.466666404936" />
         <NodeLayout
           Size="110,42"
           Id="Package\Transformaciones\Orders"
-          TopLeft="249.066632228429,312.733335558044" />
+          TopLeft="253.066632228429,396.733335558044" />
         <NodeLayout
           Size="119,42"
           Id="Package\Transformaciones\Products"
@@ -778,11 +804,11 @@
         <NodeLayout
           Size="126,42"
           Id="Package\Transformaciones\Staffs Hist"
-          TopLeft="228.5333073722,85.0666677686903" />
+          TopLeft="232.5333073722,169.06666776869" />
         <NodeLayout
           Size="105,42"
           Id="Package\Transformaciones\Stock"
-          TopLeft="249.799971191089,245.733334917492" />
+          TopLeft="253.799971191089,329.733334917492" />
         <NodeLayout
           Size="109,42"
           Id="Package\Transformaciones\Stores"
@@ -877,18 +903,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Transformaciones.PrecedenceConstraints[Restricción 4]"
-          TopLeft="206.43330548472,334.733335640695">
+          TopLeft="142.13330548472,357.133335723347">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="42.6333267437093,0"
+              EndConnector="148.933326743709,39.599999834697"
               Start="0,0"
-              End="35.1333267437093,0">
+              End="148.933326743709,32.099999834697">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="35.1333267437093,0" />
+                    End="0,19.4193547409499" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.4193547409499"
+                    Point2="0,23.4193547409499"
+                    Point3="4,23.4193547409499" />
+                  <mssgle:LineSegment
+                    End="144.933326743709,23.4193547409499" />
+                  <mssgle:CubicBezierSegment
+                    Point1="144.933326743709,23.4193547409499"
+                    Point2="148.933326743709,23.4193547409499"
+                    Point3="148.933326743709,27.4193547409499" />
+                  <mssgle:LineSegment
+                    End="148.933326743709,32.099999834697" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -899,7 +937,7 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Transformaciones.PrecedenceConstraints[Restricción 5]"
-          TopLeft="303.233301709759,312.733335558044">
+          TopLeft="307.233301709759,396.733335558044">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -921,7 +959,7 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Transformaciones.PrecedenceConstraints[Restricción 6]"
-          TopLeft="299.516638536587,245.733334917492">
+          TopLeft="303.516638536587,329.733334917492">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -943,7 +981,7 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Transformaciones.PrecedenceConstraints[Restricción 7]"
-          TopLeft="294.083306627142,164.266667603387">
+          TopLeft="298.083306627142,248.266667603387">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -965,7 +1003,7 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Transformaciones.PrecedenceConstraints[Restricción 8]"
-          TopLeft="289.816639430656,85.0666677686903">
+          TopLeft="293.816639430656,169.06666776869">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -985,27 +1023,65 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <ContainerLayout
-          HeaderHeight="43"
-          IsExpanded="True"
-          PanelSize="534,422"
-          Size="534,465"
-          Id="Package\Transformaciones"
-          TopLeft="623.333308564293,30.6666666115655" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Transformaciones\Staff_Hist"
+          TopLeft="228,12" />
         <EdgeLayout
-          Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="512.899998311202,263.366666787201">
+          Id="Package\Transformaciones.PrecedenceConstraints[Constraint]"
+          TopLeft="291.299985744556,97.466666404936">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="110.433310253091,0"
+              EndConnector="0,-43.466666404936"
               Start="0,0"
-              End="102.933310253091,0">
+              End="0,-35.966666404936">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="102.933310253091,0" />
+                    End="0,-35.966666404936" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="534,494"
+          Size="534,537"
+          Id="Package\Transformaciones"
+          TopLeft="623.333308564293,30.6666666115655" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="512.499998311202,263.766666962836">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="110.833310253091,35.3999996487299"
+              Start="0,0"
+              End="103.333310253091,35.3999996487299">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="51.4166551265455,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="51.4166551265455,0"
+                    Point2="55.4166551265455,0"
+                    Point3="55.4166551265455,4" />
+                  <mssgle:LineSegment
+                    End="55.4166551265455,31.3999996487299" />
+                  <mssgle:CubicBezierSegment
+                    Point1="55.4166551265455,31.3999996487299"
+                    Point2="55.4166551265455,35.3999996487299"
+                    Point3="59.4166551265455,35.3999996487299" />
+                  <mssgle:LineSegment
+                    End="103.333310253091,35.3999996487299" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

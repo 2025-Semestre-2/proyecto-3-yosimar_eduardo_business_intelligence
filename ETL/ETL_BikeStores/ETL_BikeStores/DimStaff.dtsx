@@ -11,8 +11,8 @@
   DTS:LocaleID="5130"
   DTS:ObjectName="DimStores"
   DTS:PackageType="5"
-  DTS:VersionBuild="3"
-  DTS:VersionGUID="{A00BCACE-5C7A-4584-938C-B938F1005180}">
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{D574CB32-DC91-46E3-A968-05C28A03959D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -56,10 +56,14 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT P.product_id, P.product_name, P.category_id, C.category_name, B.brand_id, B.brand_name, P.model_year, P.list_price
-FROM production.products_stage P
-INNER JOIN production.categories_stage C ON P.category_id = C.category_id
-INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+    SS.staff_id,
+    SS.full_name,
+    SS.active,
+    SS.store_id,
+    SST.store_name
+FROM sales.staffs_stage SS
+join sales.stores_stage SST ON SS.store_id = SST.store_id;</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -76,7 +80,7 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                   dataType="System.Int32"
                   description="Specifies the mode used to access the database."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">2</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
@@ -133,6 +137,17 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[active]"
                       name="active"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[store_name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].ExternalColumns[store_name]"
+                      length="255"
+                      lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[store_name]"
+                      name="store_name"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -154,6 +169,12 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                       refId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].ExternalColumns[active]"
                       dataType="ui1"
                       name="active" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].ExternalColumns[store_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="store_name" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -184,6 +205,13 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Error Output].Columns[store_id]"
                       name="store_id" />
                     <outputColumn
+                      refId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Error Output].Columns[store_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Error Output].Columns[store_name]"
+                      name="store_name" />
+                    <outputColumn
                       refId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
@@ -201,11 +229,11 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
               </outputs>
             </component>
             <component
-              refId="Package\Data Flow Task\Insertar destino"
+              refId="Package\Data Flow Task\Insert Destination"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
-              name="Insertar destino"
+              name="Insert Destination"
               usesDispositions="true"
               version="4">
               <properties>
@@ -258,7 +286,7 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Data Flow Task\Insertar destino.Connections[OleDbConnection]"
+                  refId="Package\Data Flow Task\Insert Destination.Connections[OleDbConnection]"
                   connectionManagerID="{E0225831-BD6F-44CA-8DBC-CDBFD328B4D0}:external"
                   connectionManagerRefId="Project.ConnectionManagers[86.48.22.73.BikeStores_DW.sa]"
                   description="The OLE DB runtime connection used to access the database."
@@ -266,84 +294,98 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input]"
+                  refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].Columns[staff_id]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[staff_id]"
                       cachedDataType="i4"
                       cachedName="staff_id"
-                      externalMetadataColumnId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].ExternalColumns[staff_id]"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[staff_id]"
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[staff_id]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].Columns[full_name]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[full_name]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="510"
                       cachedName="full_name"
-                      externalMetadataColumnId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].ExternalColumns[full_name]"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[full_name]"
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[full_name]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].Columns[active]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[active]"
                       cachedDataType="ui1"
                       cachedName="active"
-                      externalMetadataColumnId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].ExternalColumns[active]"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[active]"
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[active]" />
                     <inputColumn
-                      refId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].Columns[store_id]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[store_id]"
                       cachedDataType="i4"
                       cachedName="store_id"
-                      externalMetadataColumnId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].ExternalColumns[store_id]"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[store_id]"
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[store_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].Columns[store_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="store_name"
+                      externalMetadataColumnId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[store_name]"
+                      lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[store_name]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].ExternalColumns[staffKey]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[staffKey]"
                       dataType="i4"
                       name="staffKey" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].ExternalColumns[staff_id]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[staff_id]"
                       dataType="i4"
                       name="staff_id" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].ExternalColumns[full_name]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[full_name]"
                       codePage="1252"
                       dataType="str"
                       length="510"
                       name="full_name" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].ExternalColumns[active]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[active]"
                       dataType="ui1"
                       name="active" />
                     <externalMetadataColumn
-                      refId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input].ExternalColumns[store_id]"
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[store_id]"
                       dataType="i4"
                       name="store_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input].ExternalColumns[store_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="store_name" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\Insertar destino.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\Insertar destino.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\Insertar destino.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Insertar destino.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Data Flow Task\Insertar destino.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Data Flow Task\Insert Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -369,7 +411,7 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                   description="The SQL command to be executed."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[DimStaffs] SET [active] = ?,[full_name] = ?,[store_id] = ? WHERE [staff_id] = ?</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[DimStaffs] SET [active] = ?,[full_name] = ?,[store_id] = ?,[store_name] = ? WHERE [staff_id] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -409,7 +451,7 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                       refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].Columns[staff_id]"
                       cachedDataType="i4"
                       cachedName="staff_id"
-                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[staff_id]" />
                     <inputColumn
                       refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].Columns[store_id]"
@@ -417,6 +459,14 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                       cachedName="store_id"
                       externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[store_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].Columns[store_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="store_name"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[store_name]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -457,8 +507,21 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                     </externalMetadataColumn>
                     <externalMetadataColumn
                       refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
-                      dataType="i4"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
                       name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Command.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      dataType="i4"
+                      name="Param_4">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -519,7 +582,7 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                   description="The SQL command to be executed."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[DimStaffs] SET [active] = ?,[full_name] = ?,[store_id] = ? WHERE [staff_id] = ?</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE [dbo].[DimStaffs] SET [active] = ?,[full_name] = ?,[store_id] = ?,[store_name] = ? WHERE [staff_id] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -559,7 +622,7 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                       refId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].Columns[staff_id]"
                       cachedDataType="i4"
                       cachedName="staff_id"
-                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[staff_id]" />
                     <inputColumn
                       refId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].Columns[store_id]"
@@ -567,6 +630,14 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                       cachedName="store_id"
                       externalMetadataColumnId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
                       lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[store_id]" />
+                    <inputColumn
+                      refId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].Columns[store_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="store_name"
+                      externalMetadataColumnId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[store_name]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -607,8 +678,21 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                     </externalMetadataColumn>
                     <externalMetadataColumn
                       refId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
-                      dataType="i4"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
                       name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\OLE DB Command 1.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      dataType="i4"
+                      name="Param_4">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -663,7 +747,7 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                   dataType="System.String"
                   description="Specifies the SELECT statement used to create a schema rowset."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [active], [full_name], [staff_id], [store_id] FROM [dbo].[DimStaffs]</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [active], [full_name], [staff_id], [store_id], [store_name] FROM [dbo].[DimStaffs]</property>
                 <property
                   dataType="System.String"
                   description="Specifies the WHERE clause in the SELECT statement that selects the current row among rows with identical business keys."
@@ -671,7 +755,7 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                 <property
                   dataType="System.Boolean"
                   description="Indicates whether historical attribute updates are directed to the transformation output for changing attribute updates."
-                  name="UpdateChangingAttributeHistory">false</property>
+                  name="UpdateChangingAttributeHistory">true</property>
                 <property
                   dataType="System.Boolean"
                   description="Indicates whether the transformation fails when columns with fixed attributes contain changes."
@@ -765,6 +849,21 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                           typeConverter="ColumnType">2</property>
                       </properties>
                     </inputColumn>
+                    <inputColumn
+                      refId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].Columns[store_name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="store_name"
+                      externalMetadataColumnId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[store_name]"
+                      lineageId="Package\Data Flow Task\ExtraerDatos.Outputs[OLE DB Source Output].Columns[store_name]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          name="ColumnType"
+                          typeConverter="ColumnType">2</property>
+                      </properties>
+                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -786,6 +885,12 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                       refId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[store_id]"
                       dataType="i4"
                       name="store_id" />
+                    <externalMetadataColumn
+                      refId="Package\Data Flow Task\Slowly Changing Dimension.Inputs[Slowly Changing Dimension Input].ExternalColumns[store_name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="store_name" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -854,7 +959,7 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
               startId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[Inferred Member Updates Output]" />
             <path
               refId="Package\Data Flow Task.Paths[New Output]"
-              endId="Package\Data Flow Task\Insertar destino.Inputs[OLE DB Destination Input]"
+              endId="Package\Data Flow Task\Insert Destination.Inputs[OLE DB Destination Input]"
               name="New Output"
               startId="Package\Data Flow Task\Slowly Changing Dimension.Outputs[New Output]" />
             <path
@@ -868,19 +973,19 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
     </DTS:Executable>
   </DTS:Executables>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
-<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
-<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
-<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
 <Objects
   Version="8">
-  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
   <Package
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="150.4,41.6"
+          Size="150,42"
           Id="Package\Data Flow Task"
           TopLeft="369.999985297522,153.400001219114" />
       </GraphLayout>
@@ -892,16 +997,16 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="208,41.6"
+          Size="208,42"
           Id="Package\Data Flow Task\Slowly Changing Dimension"
-          TopLeft="195.7,107.1" />
+          TopLeft="208,107.5" />
         <NodeLayout
-          Size="139.2,41.6"
+          Size="139,42"
           Id="Package\Data Flow Task\ExtraerDatos"
-          TopLeft="230.1,5.49999999999984" />
+          TopLeft="242.5,5.49999999999989" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[OLE DB Source Output]"
-          TopLeft="299.7,47.0999999999998">
+          TopLeft="312,47.4999999999999">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -922,18 +1027,18 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="150.4,41.6"
-          Id="Package\Data Flow Task\Insertar destino"
-          TopLeft="5.5000000000001,208.7" />
+          Size="163,42"
+          Id="Package\Data Flow Task\Insert Destination"
+          TopLeft="5.50000000000006,209.5" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[New Output]"
-          TopLeft="249.7,148.7">
+          TopLeft="262,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-169,60"
+              EndConnector="-175,60"
               Start="0,0"
-              End="-169,52.5">
+              End="-175,52.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -944,30 +1049,30 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                     Point2="0,20.5063291139241"
                     Point3="-4,20.5063291139241" />
                   <mssgle:LineSegment
-                    End="-165,20.5063291139241" />
+                    End="-171,20.5063291139241" />
                   <mssgle:CubicBezierSegment
-                    Point1="-165,20.5063291139241"
-                    Point2="-169,20.5063291139241"
-                    Point3="-169,24.5063291139241" />
+                    Point1="-171,20.5063291139241"
+                    Point2="-175,20.5063291139241"
+                    Point3="-175,24.5063291139241" />
                   <mssgle:LineSegment
-                    End="-169,52.5" />
+                    End="-175,52.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-111.59138671875,25.5063291139241,54.1827734375,11.43359375"
+              BoundingBox="-114.59138671875,25.5063291139241,54.1827734375,11.43359375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="167.2,41.6"
+          Size="166,42"
           Id="Package\Data Flow Task\OLE DB Command"
-          TopLeft="216.1,208.7" />
+          TopLeft="229,209.5" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Inferred Member Updates Output]"
-          TopLeft="299.7,148.7">
+          TopLeft="312,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -990,18 +1095,18 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="176,41.6"
+          Size="175,42"
           Id="Package\Data Flow Task\OLE DB Command 1"
-          TopLeft="443.7,208.7" />
+          TopLeft="455.5,209.5" />
         <EdgeLayout
           Id="Package\Data Flow Task.Paths[Changing Attribute Updates Output]"
-          TopLeft="349.7,148.7">
+          TopLeft="362,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="182,60"
+              EndConnector="181,60"
               Start="0,0"
-              End="182,52.5">
+              End="181,52.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -1012,20 +1117,20 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
                     Point2="0,20.5063291139241"
                     Point3="4,20.5063291139241" />
                   <mssgle:LineSegment
-                    End="178,20.5063291139241" />
+                    End="177,20.5063291139241" />
                   <mssgle:CubicBezierSegment
-                    Point1="178,20.5063291139241"
-                    Point2="182,20.5063291139241"
-                    Point3="182,24.5063291139241" />
+                    Point1="177,20.5063291139241"
+                    Point2="181,20.5063291139241"
+                    Point3="181,24.5063291139241" />
                   <mssgle:LineSegment
-                    End="182,52.5" />
+                    End="181,52.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="12.46609375,25.5063291139241,157.0678125,11.6630859375"
+              BoundingBox="11.96609375,25.5063291139241,157.0678125,11.6630859375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -1067,14 +1172,20 @@ INNER JOIN production.brands_stage B ON P.brand_id = B.brand_id;</property>
       &lt;KeyType&gt;None&lt;/KeyType&gt;
       &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
     &lt;/InputColumnToDBColumn&gt;
+    &lt;InputColumnToDBColumn&gt;
+      &lt;IdentificationString&gt;ExtraerDatos.Outputs[OLE DB Source Output].Columns[store_name]&lt;/IdentificationString&gt;
+      &lt;ColumnName&gt;store_name&lt;/ColumnName&gt;
+      &lt;KeyType&gt;None&lt;/KeyType&gt;
+      &lt;ChangeType&gt;ChangingAttribute&lt;/ChangeType&gt;
+    &lt;/InputColumnToDBColumn&gt;
   &lt;/InputToColumnsCollection&gt;
   &lt;GeneratedComponentsIdentificationStrings&gt;
-    &lt;anyType xsi:type="xsd:string"&gt;Insertar destino&lt;/anyType&gt;
+    &lt;anyType xsi:type="xsd:string"&gt;Insert Destination&lt;/anyType&gt;
     &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command&lt;/anyType&gt;
     &lt;anyType xsi:type="xsd:string"&gt;OLE DB Command 1&lt;/anyType&gt;
   &lt;/GeneratedComponentsIdentificationStrings&gt;
   &lt;FailFixedAttribute&gt;false&lt;/FailFixedAttribute&gt;
-  &lt;FailChangeAttribute&gt;false&lt;/FailChangeAttribute&gt;
+  &lt;FailChangeAttribute&gt;true&lt;/FailChangeAttribute&gt;
   &lt;UseStartEndDate&gt;false&lt;/UseStartEndDate&gt;
   &lt;CurrentIndicatorColumn /&gt;
   &lt;InferredIndicatorColumn /&gt;

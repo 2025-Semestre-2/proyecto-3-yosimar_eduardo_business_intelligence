@@ -31,20 +31,21 @@ Especificamente en este modelo de Data Warehouse se requiere:
 */
 
 CREATE TABLE dbo.DimProducts (
-    productKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  productKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	product_id INT IDENTITY (1, 1) NOT NULL,
 	product_name VARCHAR (255) NOT NULL,
-    category_id INT NOT NULL,
-    category_name VARCHAR (255) NOT NULL,
-    brand_id INT NOT NULL,
-    brand_name VARCHAR (255) NOT NULL,
-    model_year SMALLINT NOT NULL,
-    list_price DECIMAL (10, 2) NOT NULL,
+  category_id INT NOT NULL,
+  category_name VARCHAR (255) NOT NULL,
+  brand_id INT NOT NULL,
+  brand_name VARCHAR (255) NOT NULL,
+  model_year SMALLINT NOT NULL,
+  list_price DECIMAL (10, 2) NOT NULL,
+  quantity INT NULL, -- Se agrega la cantidad del producto para que se pueda acceder a ella.
 	CONSTRAINT UQ_DimProducts_BK UNIQUE (product_id)
 );
 
 CREATE TABLE dbo.DimStores (
-    storeKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  storeKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	store_id INT NOT NULL,
 	store_name VARCHAR (255) NOT NULL,
 	city VARCHAR (255),
@@ -53,11 +54,12 @@ CREATE TABLE dbo.DimStores (
 );
 
 CREATE TABLE dbo.DimStaffs (
-    staffKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  staffKey INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	staff_id INT NOT NULL,
-    full_name VARCHAR(510) NOT NULL,
+  full_name VARCHAR(510) NOT NULL,
 	active tinyint NOT NULL,
 	store_id INT NOT NULL,
+  store_name VARCHAR (255) NOT NULL,
 	CONSTRAINT UQ_DimStaffs_BK UNIQUE (staff_id)
 );
 
@@ -80,10 +82,6 @@ CREATE TABLE dbo.DimOrders (
   shipped_date DATE NULL,
   store_id INT NOT NULL,
   staff_id INT NOT NULL,
-  -- Estos son los nuevos que se tiene que agregar para calcular los montos.
-  -- GrossAmount DECIMAL(18,2) NOT NULL, -- Monto Bruto.
-  -- DiscountAmount DECIMAL(18,2) NOT NULL, -- Monto con descuento.
-  -- NetAmount DECIMAL(18,2) NOT NULL, -- Monto neto.
   CONSTRAINT UQ_DimOrders_BK UNIQUE (order_id)
 );
 
