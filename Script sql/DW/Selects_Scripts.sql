@@ -23,3 +23,12 @@ join sales.order_items_stage OIS ON OS.order_id = OIS.order_id;
 
 
 
+SELECT 
+    SS.staff_id,
+    SS.full_name,
+    SS.active,
+    SS.store_id,
+    SST.store_name
+FROM sales.staffs_stage SS
+join sales.stores_stage SST ON SS.store_id = SST.store_id;
+
