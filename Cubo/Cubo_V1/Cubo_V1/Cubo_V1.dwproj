@@ -6,10 +6,55 @@
     <Name>Cubo_V1.database</Name>
     <FullPath>Cubo_V1.database</FullPath>
   </Database>
+  <Dimensions>
+    <ProjectItem>
+      <Name>Dim_Products.dim</Name>
+      <FullPath>Dim_Products.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Customers.dim</Name>
+      <FullPath>Dim Customers.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Stores.dim</Name>
+      <FullPath>Dim Stores.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Staffs.dim</Name>
+      <FullPath>Dim Staffs.dim</FullPath>
+    </ProjectItem>
+  </Dimensions>
+  <DataSources>
+    <ProjectItem>
+      <Name>Bike Stores DW.ds</Name>
+      <FullPath>Bike Stores DW.ds</FullPath>
+    </ProjectItem>
+  </DataSources>
+  <DataSourceViews>
+    <ProjectItem>
+      <Name>Bike Stores DW.dsv</Name>
+      <FullPath>Bike Stores DW.dsv</FullPath>
+    </ProjectItem>
+  </DataSourceViews>
   <Configurations>
     <Configuration>
       <Name>Development</Name>
-      <Options />
+      <Options>
+        <ConnectionMappings>
+          <ConfigurationSetting>
+            <Id>Bike Stores DW</Id>
+            <Name>Bike Stores DW</Name>
+            <Value xsi:type="xsd:string">Provider=MSOLEDBSQL.1;Data Source=86.48.22.73;Persist Security Info=True;Password=;User ID=;Initial Catalog=BikeStores_DW</Value>
+          </ConfigurationSetting>
+        </ConnectionMappings>
+        <ConnectionSecurityMappings>
+          <ConfigurationSetting>
+            <Id>Bike Stores DW</Id>
+            <Name>Bike Stores DW</Name>
+            <Value xsi:type="xsd:int">1</Value>
+          </ConfigurationSetting>
+        </ConnectionSecurityMappings>
+      </Options>
     </Configuration>
   </Configurations>
 </Project>
