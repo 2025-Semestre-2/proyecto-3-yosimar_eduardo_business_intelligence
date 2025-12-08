@@ -197,7 +197,33 @@
           <Name>Categoria</Name>
           <SourceAttributeID>Category Name</SourceAttributeID>
         </Level>
+        <Level dwd:design-time-name="995a1a23-6aa7-409a-a951-e6e572721dca">
+          <ID>Año del modelo</ID>
+          <Name>Año del modelo</Name>
+          <SourceAttributeID>Model Year</SourceAttributeID>
+        </Level>
         <Level dwd:design-time-name="05907b57-7f71-4254-8ba2-c424017a33ef">
+          <ID>Producto</ID>
+          <Name>Producto</Name>
+          <SourceAttributeID>Product Key</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+    <Hierarchy dwd:design-time-name="38d2f709-865d-44fb-85e4-57264522c843">
+      <ID>Hierarchy 1</ID>
+      <Name>Jerarquia Producto-año-marca</Name>
+      <Levels>
+        <Level dwd:design-time-name="50e5e6e4-4622-466b-a766-b0443883538b">
+          <ID>Marca</ID>
+          <Name>Marca</Name>
+          <SourceAttributeID>Brand Name</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="9626ea8d-0431-46ed-a1b2-85e16ccb6714">
+          <ID>Año del modelo</ID>
+          <Name>Año del modelo</Name>
+          <SourceAttributeID>Model Year</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="7509a311-3a68-4251-a2ef-953dfe202c50">
           <ID>Producto</ID>
           <Name>Producto</Name>
           <SourceAttributeID>Product Key</SourceAttributeID>
